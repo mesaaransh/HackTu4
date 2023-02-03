@@ -3,14 +3,17 @@ const ejs = require("ejs")
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose")
 
-mongoose.connect("mongodb://localhost:27017/HackTu")
+const dotenv = require('dotenv')
+dotenv.config()
+
+mongoose.set('strictQuery', false);
+mongoose.connect('mongodb+srv://mesaaransh:' + process.env.pass + '@cluster0.x2j4nhi.mongodb.net/HackTu?retryWrites=true&w=majority')
+
 
 const app = express()
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.set('view engine', 'ejs')
-
-
 
 const testschema = new mongoose.Schema({
     head: String,
@@ -35,7 +38,7 @@ app.post("/add", function(req, res){
     })
 
     newobj.save();
-    
+    res.redirect('/')    
 })
 
 app.listen(8000, ()=>{console.log("----------AppStarted-----------");})
