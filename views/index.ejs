@@ -34,37 +34,25 @@
   <!--header section start -->
     <div class="header_section">
       <div class="header_left">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="services.html">Services</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="team.html">Team</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+
+
+
+        <%- include('nav') -%> 
+
+
         <div class="banner_main">
-          <h1 class="banner_taital">financial <br>Service</h1>
-          <p class="banner_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever </p>
-          <div class="btn_main">
-            <div class="more_bt"><a href="#">login </a></div>
-            <div class="contact_bt"><a href="#">Sign up</a></div>
+          <h1 class="banner_taital">Budget <br> Buddy</h1>
+          <p class="banner_text">
+            <h1>Welcome!<br></h1>  
+            <h6>It's nice to see you.<br></h6> 
+            <h6>Log in/Sign up to continue to Budget Buddy and to develop a new financial attitude. </h6>            
+          </p>
+          <div class="btn_main" style="margin-top: -60px">
+            <div class="more_bt"><a href="/login">login </a></div>
+            <div class="contact_bt"><a href="/register">Sign up</a></div>
+          </div>
+          <div style="margin-top: 100px">
+            <h6>By signing up, you agree to our <span style="color: #6c63ff; text-decoration: underline; cursor: pointer">Terms and Conditions</span> and <span style="color: #6c63ff; text-decoration: underline; cursor: pointer">Privacy Policy</span></h6>
           </div>
         </div>
       </div>
@@ -78,8 +66,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8">
-            <h1 class="services_taital">WELCOME TO FINAnCIAL SERVICES</h1>
-            <p class="services_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it </p>
+            <h1 class="services_taital">WELCOME TO Budget Buddy</h1>
+            <p class="services_text">Managing your daily expenses has never been easier. Whether its travel expenses, business expenses, housing expenses or any other miscellaneous expenses, access all receipts and expense submissions from your expenses dashboard and bifurcate them into different categories in just a click using Budget Buddy. 
+              No need to download any specialized software to maintain records - everything can be done directly through Budget Buddy. 
+               </p>
             <div class="moremore_bt"><a href="#">Read More </a></div>
           </div>
           <div class="col-md-4">
@@ -93,38 +83,40 @@
     <div class="what_we_do_section layout_padding" style="margin-top: -20px;">
       <div class="container">
         <h1 class="what_taital">WHAT WE DO</h1>
-        <p class="what_text">It is a long established fact that a reader will be distracted by the readable content of a </p>
+        <p class="what_text">Month-end close keeps you running, so let Budget Buddy help keep your budget running.
+          <br> We lighten your load by tracking and managing your expenses. 
+          </p>
         <div class="what_we_do_section_2">
           <div class="row">
           <div class="col-lg-3 col-sm-6">
             <div class="box_main">
               <div class="icon_1"><img src="images/icon-1.png"></div>
-              <h3 class="accounting_text">Accounting</h3>
-              <p class="lorem_text">Lorem Ipsum is simply dummy text of the printing and</p>
+              <h3 class="accounting_text">CATEGORIZE TRANSACTIONS</h3>
+              <p class="lorem_text">Budget Buddy categorizes to help you track your spending. Use default spending categories, or rename and recategorize expense categories to suit our needs.</p>
               <div class="moremore_bt_1"><a href="#">Read More </a></div>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6">
-            <div class="box_main active">
+            <div class="box_main">
               <div class="icon_1"><img src="images/icon-2.png"></div>
-              <h3 class="accounting_text">Advisor</h3>
-              <p class="lorem_text">Lorem Ipsum is simply dummy text of the printing and</p>
+              <h3 class="accounting_text">MANAGE EXPENSES </h3>
+              <p class="lorem_text">Have a clear overview of your expenditure. Easily follow your expense records to keep an eye on costs and ensure they keep on target and within budget. </p>
               <div class="moremore_bt_1"><a href="#">Read More </a></div>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6">
             <div class="box_main">
               <div class="icon_1"><img src="images/icon-3.png"></div>
-              <h3 class="accounting_text">Investment</h3>
-              <p class="lorem_text">Lorem Ipsum is simply dummy text of the printing and</p>
+              <h3 class="accounting_text">YOUR FINANCES SAFE AND SECURE</h3>
+              <p class="lorem_text">With 256-bit encryption and multi factor authentication, we protect your information as if it's our own.</p>
               <div class="moremore_bt_1"><a href="#">Read More </a></div>
             </div>
           </div>
           <div class="col-lg-3 col-sm-6">
             <div class="box_main">
               <div class="icon_1"><img src="images/icon-4.png"></div>
-              <h3 class="accounting_text">Financial</h3>
-              <p class="lorem_text">Lorem Ipsum is simply dummy text of the printing and</p>
+              <h3 class="accounting_text">DISCOVER MONEY OPPORTUNITIES</h3>
+              <p class="lorem_text">Get recommendations that help cut spending or create wiggle room. Reach your goals faster with a budget catered to you.</p>
               <div class="moremore_bt_1"><a href="#">Read More </a></div>
             </div>
           </div>
