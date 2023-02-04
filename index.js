@@ -6,8 +6,12 @@ const mongoose = require("mongoose")
 const dotenv = require('dotenv')
 dotenv.config()
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 mongoose.set('strictQuery', false);
 mongoose.connect('mongodb+srv://mesaaransh:' + process.env.pass + '@cluster0.x2j4nhi.mongodb.net/HackTu?retryWrites=true&w=majority')
+
 
 
 const app = express()
@@ -15,30 +19,92 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.set('view engine', 'ejs')
 
-const testschema = new mongoose.Schema({
-    head: String,
-    body: String
+const userSchema = new mongoose.Schema({
+    fname: String,
+    lname: String,
+    password: String,
+    dob: Date,
+    email: String,
+    phone: String,
+    dateCreated: Date
 })
 
-const testtable = mongoose.model("study", testschema)
+const userTable = mongoose.model("User", userSchema)
 
 app.get("/", function(req, res){
     res.render("index")
 })
 
-app.post("/add", function(req, res){
-    const nhead = req.body.head;
-    const nbody = req.body.body;
+app.get("/login", function(req, res){
+    res.render("login")
+})
 
-    console.log(nhead, nbody);
+app.get("/register", function(req, res){
+    res.render("register")
+})
 
-    const newobj = new testtable({
-        head: nhead,
-        body: nbody
+
+app.post("/login", function(req, res){
+
+    const body = req.body;
+
+    const {pass, email} = body
+    var encpass
+
+    userTable.find({email: email}, (err, list) => {
+        if(err){
+            res.send('err');
+        } else {
+            encpass = list[0].pass;
+        }
     })
 
-    newobj.save();
+    bcrypt.compare(pass, encpass, function(err, result) {
+        if(result){
+            
+        } else{
+            res.send('User Not Authenticated')
+        }
+    });
+
+    newUser.save();
     res.redirect('/')    
 })
+
+
+
+
+
+
+
+
+app.post("/register", function(req, res){
+
+    const body = req.body;
+
+    const {fname, lname, pass, dob, email, phone} = body
+
+    bcrypt.hash(pass, saltRounds, function(err, hash) {
+        if(err){
+
+        } else{
+            pass = hash;
+        }
+    });
+
+    const newUser = new userTable({
+        fname: fname,
+        lname: lname,
+        password: pass,
+        dob: dob,
+        email: email,
+        phone: phone
+    })
+
+    newUser.save();
+    res.redirect('/')    
+})
+
+
 
 app.listen(8000, ()=>{console.log("----------AppStarted-----------");})
