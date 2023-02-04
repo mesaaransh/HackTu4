@@ -29,6 +29,20 @@ const userSchema = new mongoose.Schema({
     dateCreated: Date
 })
 
+
+const ExpenseSchema = new mongoose.Schema({
+    userId: mongoose.Schema.Types.ObjectId,
+    expense: Number,
+    Date: Date
+})
+
+
+const IncomeSchema = new mongoose.Schema({
+    userId: mongoose.Schema.Types.ObjectId,
+    expense: Number,
+    Date: Date
+})
+
 const userTable = mongoose.model("User", userSchema)
 
 app.get("/", function(req, res){
@@ -44,11 +58,24 @@ app.get("/register", function(req, res){
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 app.post("/login", function(req, res){
 
     const body = req.body;
 
     const {pass, email} = body
+
     var encpass
 
     userTable.find({email: email}, (err, list) => {
@@ -67,8 +94,7 @@ app.post("/login", function(req, res){
         }
     });
 
-    newUser.save();
-    res.redirect('/')    
+    res.redirect('/login')
 })
 
 
