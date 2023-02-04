@@ -61,6 +61,9 @@ app.get("/register", function(req, res){
     res.render("register")
 })
 
+app.get("/test", function(req, res){
+    res.render("test")
+})
 app.get("/about", function(req, res){
     res.render("about")
 })
@@ -73,7 +76,12 @@ app.get("/team", function(req, res){
     res.render("team")
 })
 
-
+app.get("/expense", function(req, res){
+    res.render("expense")
+})
+app.get("/income", function(req, res){
+    res.render("income")
+})
 
 
 
