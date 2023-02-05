@@ -42,7 +42,7 @@
             <div class="col-md-12 grid-margin">
               <div class="row">
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                  <h3 class="font-weight-bold">Welcome Aamir</h3>
+                  <h3 class="font-weight-bold">Welcome <%= ident %></h3>
                   <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span class="text-primary">3 unread alerts!</span></h6>
                 </div>
                 <div class="col-12 col-xl-4">
@@ -119,11 +119,24 @@
                                     </tr>  
                                   </thead>
                                   <tbody>
+
+                                    <% for (let i = 0; i < trans.length; i++) {
+                                      const a = trans[i].categ
+                                      const b = trans[i].expense
+                                      const c = trans[i].Date
+                                    %> 
+                          
+                          
                                     <tr>
-                                      <td class="font-weight-medium"><div class="badge badge-success">Completed</div></td>
-                                      <td class="font-weight-bold"></td>
-                                      <td></td>
+                                      <td class="font-weight-medium"><div class="badge badge-success"> <%= a %> </div></td>
+                                      <td class="font-weight-bold"><%= b %></td>
+                                      <td><%= c %></td>
                                     </tr>
+                          
+                                  <% } %>
+
+
+                                    
                                    
                                   </tbody>
                                 </table>

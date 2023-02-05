@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
 
 
 const expenseSchema = new mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId,
+    userId: String,
     categ: String,
     expense: Number,
     Date: Date
@@ -39,7 +39,7 @@ const expenseSchema = new mongoose.Schema({
 
 
 const incomeSchema = new mongoose.Schema({
-    userId: mongoose.Schema.Types.ObjectId,
+    userId: String,
     categ: String,
     income: Number,
     Date: Date
@@ -100,9 +100,6 @@ app.get("/register", function(req, res){
     res.render("register")
 })
 
-app.get("/test", function(req, res){
-    res.render("test")
-})
 app.get("/about", function(req, res){
     res.render("about")
 })
@@ -115,15 +112,87 @@ app.get("/team", function(req, res){
     res.render("team")
 })
 
+
+
+
+
+
+
+
+
+
 app.get("/expense", function(req, res){
-    res.render("expense", {categ: categ, ids: req.query.ids})
+
+    userTable.find({_id: req.query.ids}, (err, user) => {
+        ExpTable.find({userId: req.query.ids}, (err, result) => {
+            if(err){
+    
+            } else {
+                res.render("expense", {categ: categ, ids: req.query.ids, trans: result, ident: user[0].fname})
+            }
+    
+        })
+    })  
 })
 
 app.get("/income", function(req, res){
-    res.render("income")
+
+
+    userTable.find({_id: req.query.ids}, (err, user) => {
+        IncTable.find({userId: req.query.ids}, (err, result) => {
+            if(err){
+    
+            } else {
+                console.log(result);
+                res.render("income", {categ: categ, ids: req.query.ids, trans: result, ident: user[0].fname})
+            }
+    
+        })
+    })
 })
+
+
+
 app.get("/test", function(req, res){
-    res.render("/test")
+    console.log(req.query.ids);
+
+    var totalinc = 0;
+
+    var totalexp = 0;
+
+    function addinc (a){
+        totalinc += a;
+    }
+
+    function addexp (a){
+        totalexp += a;
+    }
+
+    userTable.find({_id: req.query.ids}, (err, user) => {
+        IncTable.find({userId: req.query.ids}, (err, result) => {
+            if(err){
+    
+            } else {
+                for(var i=0;i<=result.length-1;i++){
+                    addinc(result[i].income)
+                }
+                ExpTable.find({userId: req.query.ids}, (err, result) => {
+                    if(err){
+            
+                    } else {
+                        for(var i=0;i<=result.length-1;i++){
+                            addexp(result[i].expense)
+                        }
+                        res.render("test", {ids: req.query.ids, inc: totalinc, exp: totalexp, ident: user[0].fname})
+                    }
+            
+                })
+            }
+    
+        })
+    })
+    
+    
 })
 
 
@@ -149,7 +218,7 @@ app.post("/newexp", function(req, res){
     })
 
     expense.save();
-    res.redirect('/test')
+    res.redirect('/test?ids=' + query.ids)
 
 })
 
@@ -159,19 +228,18 @@ app.post("/newexp", function(req, res){
 app.post("/newinc", function(req, res){
 
     const body = req.body;
+    const query = req.query
 
-    const {categ, amm} = body
-
-    console.log(today)
+    const {amm} = body
 
     const inc = new IncTable({
+        userId: query.ids,
         income: amm,
-        categ: categ,
         Date: new Date()
     })
 
     inc.save();
-
+    res.redirect('/test?ids=' + query.ids)
 })
 
 

@@ -152,7 +152,8 @@
   <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
       <li class="nav-item">
-        <a class="nav-link" href="/test">
+        <% const test = '/test?ids=' + ids %>
+        <a class="nav-link" href=<%=test%>>
           <i class="icon-grid menu-icon"></i>
           <span class="menu-title">Dashboard</span>
         </a>
@@ -165,8 +166,10 @@
         </a>
         <div class="collapse" id="ui-basic">
           <ul class="nav flex-column sub-menu">
-            <li class="nav-item"> <a class="nav-link" href="/expense">Expense</a></li>
-            <li class="nav-item"> <a class="nav-link" href="/income">Income</a></li>
+            <% const expense = '/expense?ids=' + ids %>
+            <% const income = '/income?ids=' + ids %> 
+            <li class="nav-item"> <a class="nav-link" href=<%=expense%>>Expense</a></li>
+            <li class="nav-item"> <a class="nav-link" href=<%=income%>>Income</a></li>
           </ul>
         </div>
       </li>
