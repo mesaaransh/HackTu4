@@ -45,6 +45,45 @@ const incomeSchema = new mongoose.Schema({
     Date: Date
 })
 
+const categ = [
+    {
+        name: "Food",
+        color: "#E6E6FA"
+    },
+    {
+        name: "Medical & Healthcare",
+        color: "#B0E0E6"
+    },
+    {
+        name: "Entertainment",
+        color: "#FFC0CB"
+    },
+    {
+        name: "Rent",
+        color: "#98FF98"
+    },
+    {
+        name: "Clothing",
+        color: "#FFE5B4"
+    },
+    {
+        name: "Insurance",
+        color: "#87CEEB"
+    },
+    {
+        name: "Utilities",
+        color: "#C8A2C8"
+    },
+    {
+        name: "Debt Payments",
+        color: "#F08080"
+    },
+    {
+        name: "Miscellaneous",
+        color: "#FF69B4"
+    }
+]
+
 const userTable = mongoose.model("User", userSchema)
 const ExpTable = mongoose.model("Expense", expenseSchema)
 const IncTable = mongoose.model("Income", incomeSchema)
@@ -77,8 +116,9 @@ app.get("/team", function(req, res){
 })
 
 app.get("/expense", function(req, res){
-    res.render("expense")
+    res.render("expense", {categ: categ, ids: req.query.ids})
 })
+
 app.get("/income", function(req, res){
     res.render("income")
 })
@@ -92,24 +132,21 @@ app.post("/newexp", function(req, res){
 
     const body = req.body;
 
+    const query = req.query
+
     const {categ, amm} = body
 
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    today = mm + '/' + dd + '/' + yyyy;
-
-    console.log(today)
+    console.log(query.ids)
 
     const expense = new ExpTable({
+        userId: query.ids,
         expense: amm,
         categ: categ,
-        Date: today
+        Date: new Date()
     })
 
     expense.save();
+    res.redirect('/test')
 
 })
 
@@ -122,19 +159,12 @@ app.post("/newinc", function(req, res){
 
     const {categ, amm} = body
 
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    today = mm + '/' + dd + '/' + yyyy;
-
     console.log(today)
 
     const inc = new IncTable({
         income: amm,
         categ: categ,
-        Date: today
+        Date: new Date()
     })
 
     inc.save();
@@ -152,8 +182,6 @@ app.post("/login", function(req, res){
 
     const {pass, email} = body
 
-    var encpass
-
     userTable.find({email: email}, (err, list) => {
 
 
@@ -161,12 +189,9 @@ app.post("/login", function(req, res){
             res.send('err');
         }
 
-        console.log(list[0].password)
-
         bcrypt.compare(pass, list[0].password, function(err, result) {
             if(result){
-                console.log('ver')
-                res.redirect('/login?' + list[0]._id)
+                res.redirect("/expense?ids=" + list[0]._id)
             } else{
                 res.send('User Not Authenticated')
             }

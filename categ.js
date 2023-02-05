@@ -37,4 +37,4 @@ const categ = [
     }
 ]
 
-export default categ
+export {categ};
